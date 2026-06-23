@@ -91,10 +91,7 @@ Apply the oracle $U_f$.
 Instead of simply flipping the target qubit, the oracle transfers the function value into the phase:
 
 $$
-U_f(|-\rangle|a\rangle)
-=
-(-1)^{f(a)}
-|-\rangle|a\rangle
+U_f(|-\rangle|a\rangle) = (-1)^{f(a)} |-\rangle|a\rangle
 $$
 
 This is the phase kickback effect.
@@ -102,13 +99,7 @@ This is the phase kickback effect.
 After simplification, the state becomes:
 
 $$
-|\psi_2\rangle
-=
-(-1)^{f(0)}
-|-\rangle
-\left(
-\frac{|0\rangle + (-1)^{f(0)\oplus f(1)}|1\rangle}{\sqrt{2}}
-\right)
+|\psi_2\rangle = (-1)^{f(0)} |-\rangle \left(\frac{|0\rangle + (-1)^{f(0)\oplus f(1)}|1\rangle}{\sqrt{2}} \right)
 $$
 
 ### Step 4: Interference
@@ -253,11 +244,7 @@ Apply Hadamard gates to all qubits.
 The query register becomes:
 
 $$
-H^{\otimes n}|0\dots0\rangle
-=
-\frac{1}{\sqrt{2^n}}
-\sum_{x\in\{0,1\}^n}
-|x\rangle
+H^{\otimes n}|0\dots0\rangle = \frac{1}{\sqrt{2^n}} \sum_{x\in\{0,1\}^n} |x\rangle
 $$
 
 This creates an equal superposition over all possible inputs.
