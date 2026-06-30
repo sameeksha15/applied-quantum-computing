@@ -1,6 +1,6 @@
-# Oracle Based Algorithms: Deutsch and Deutsch-Jozsa
+# Oracle Based Algorithms
 
-This folder contains Qiskit implementations of two foundational quantum query algorithms: **Deutsch's Algorithm** and the **Deutsch-Jozsa Algorithm**.
+This folder contains Qiskit implementations of foundational quantum query algorithms: **Deutsch's Algorithm**, **Deutsch-Jozsa Algorithm** and **Bernstein-Vazirani Algorithm**.
 
 These algorithms demonstrate some of the earliest examples of a quantum computational advantage, solving specific function-evaluation problems using fewer oracle queries than their classical counterparts.
 
@@ -323,6 +323,139 @@ At least one measured bit will be 1.
 | Anything else      | Balanced      |
 
 Thus, a single oracle query is sufficient to determine the answer with **100% certainty**.
+
+---
+
+# 3. Bernstein-Vazirani Algorithm
+
+The Bernstein-Vazirani Algorithm identifies an unknown $n$-bit string hidden inside an oracle.
+
+It demonstrates a clear query-complexity advantage: exact recovery of the full secret with one quantum query.
+
+---
+
+## The Problem
+
+We are given access to a black-box Boolean function of the form:
+
+$$
+f_s(x) = s \cdot x \pmod 2
+$$
+
+where:
+
+- $x \in \{0,1\}^n$ is the input bit string.
+- $s \in \{0,1\}^n$ is a fixed but unknown secret string.
+- $s \cdot x = \bigoplus_{i=1}^{n} s_i x_i$ is the bitwise inner product modulo 2.
+
+---
+
+## Goal
+
+Recover the full secret string $s$ exactly.
+
+---
+
+## Classical Complexity
+
+To determine each bit of $s$, a classical deterministic strategy queries the oracle with basis vectors:
+
+$$
+x = 100\dots0,\; 010\dots0,\; \dots,\; 000\dots1
+$$
+
+Each query reveals one bit of $s$, so exact recovery requires:
+
+$$
+n
+$$
+
+oracle queries.
+
+---
+
+## Quantum Complexity
+
+Bernstein-Vazirani recovers all bits of $s$ using:
+
+$$
+1
+$$
+
+oracle query.
+
+---
+
+## How It Works
+
+### Step 1: Initialization
+
+Prepare:
+
+- $n$ query qubits in $|0\rangle$
+- 1 ancilla qubit in $|1\rangle$
+
+$$
+|0\rangle^{\otimes n}|1\rangle
+$$
+
+---
+
+### Step 2: Create Superposition
+
+Apply Hadamard gates to all qubits.
+
+The query register becomes a uniform superposition over all $x$, and the ancilla becomes $| - \rangle$.
+
+---
+
+### Step 3: Oracle Evaluation
+
+Apply the oracle $U_{f_s}$.
+
+Using phase kickback through the ancilla, the oracle encodes the secret into phase:
+
+$$
+|x\rangle \rightarrow (-1)^{s\cdot x}|x\rangle
+$$
+
+The state of the query register is now:
+
+$$
+\frac{1}{\sqrt{2^n}}\sum_{x\in\{0,1\}^n} (-1)^{s\cdot x}|x\rangle
+$$
+
+---
+
+### Step 4: Interference via Hadamard
+
+Apply $H^{\otimes n}$ again to the query qubits.
+
+Constructive interference occurs only for basis state $|s\rangle$, while other amplitudes cancel.
+
+---
+
+### Step 5: Measurement
+
+Measure the $n$ query qubits.
+
+The outcome is exactly:
+
+$$
+s
+$$
+
+with probability 1 (ideal noiseless setting).
+
+---
+
+## Decision Rule
+
+| Measurement Result | Secret String |
+| ------------------ | ------------- |
+| Measured bitstring | $s$           |
+
+So one quantum oracle query is sufficient to recover the entire hidden string exactly.
 
 # Prerequisites
 
