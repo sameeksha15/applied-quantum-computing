@@ -55,5 +55,3 @@ Start with the most relevant project-level README for the demo you are running. 
 - [Quantum teleportation notes](02_Quantum_Information_and_Oracles/Quantum_Teleportation/README.md)
 - [Bell states explorer notes](02_Quantum_Information_and_Oracles/Bell_States_Explorer/README.md)
 - [Oracle algorithms notes](02_Quantum_Information_and_Oracles/Oracle_Based_Algorithms/README.md)
-
-If you are working from a fork or a cloned copy, open an issue or a pull request in your repository host to request help or report a bug.
